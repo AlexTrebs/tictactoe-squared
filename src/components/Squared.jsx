@@ -1,19 +1,18 @@
-import CalculateWinner from "../utils/CalculateWinner";
+import CalculateWinner from "../utils/CalculateWinnerUtil";
 import TicTacToe from "./TicTacToe";
 import { useEffect, useState } from "react";
 
-function Squared({ value, squareCoord, onPlay }) {
+function Squared({ value, squareCoord }) {
     const [ lastPlayedNoughts, setLastPlayedNoughts ] = useState(false);
     const [ squares, setSquares ] = useState(Array(9).fill(null));
     const [ winner, setWinner ] = useState(null);
 
     function onPlay(i) {
       const nextSquares = squares.slice();
-      console.log(CalculateWinner(nextSquares));
       if(squares[i] || CalculateWinner(nextSquares)){
-        console.log('won');
         return;
       }
+
       if(lastPlayedNoughts){
         nextSquares[i] = 'x';
         setSquares(nextSquares);
@@ -21,15 +20,13 @@ function Squared({ value, squareCoord, onPlay }) {
         nextSquares[i] = 'o';
         setSquares(nextSquares);
       }
+
       setLastPlayedNoughts(!lastPlayedNoughts);
       const currentWinner = CalculateWinner(nextSquares);
 
-      if(currentWinner){
-
+      if(currentWinner != null){
         setWinner(currentWinner);
-
       }
-      console.log(winner);
     }
 
     useEffect(() => {

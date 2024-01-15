@@ -9,13 +9,13 @@ function CalculateWinner(squares) {
         [0, 4, 8],
         [2, 4, 6]
     ];
-    winningLines.forEach((line) => {
+    for (let line of winningLines) {
         const [a,b,c] = line;
         if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]){
             console.log(squares[a]);
             return squares[a];
         }
-    })
+    };
     return null;
 }
 

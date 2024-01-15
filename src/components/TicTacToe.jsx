@@ -1,15 +1,11 @@
 import { Paper } from '@mui/material';
-import CalculateWinner from '../utils/CalculateWinner';
+import CalculateWinner from '../utils/CalculateWinnerUtil';
 import Board from './Board';
 import { useEffect, useState } from 'react';
 
-function TicTacToe({ winner, onPlay }) {
+function TicTacToe({ winner, onPlay, squares }) {
     const [ completed, setCompleted ] = useState(false);
-    const [squares, setSquares] = useState(Array(9).fill(""));
-    function onTicTacToePlay() {
-        
 
-    }
 
     useEffect(() => {
         if(winner){

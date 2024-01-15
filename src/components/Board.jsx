@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import Square from "./Square";
 
-function Board({ squares, setWinner, onPlay}) {
+function Board({ squares, onPlay}) {
     function boardPlay(square) {
         onPlay(square);
     }
