@@ -8,9 +8,9 @@ function getSquareRender(value) {
   );
 
   return value === "o" ? (
-    <PanoramaFishEyeIcon style={{height: '100%', width: '100%'}} />
+    <PanoramaFishEyeIcon style={{height: 'auto', width: '-webkit-fill-available'}} />
   ) : value === "x" ? (
-    <CloseIcon style={{height: '100%', width: '100%'}}/>
+    <CloseIcon style={{height: 'auto', width: '-webkit-fill-available'}}/>
   ) : (
     box
   );

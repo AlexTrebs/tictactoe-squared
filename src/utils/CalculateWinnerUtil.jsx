@@ -1,20 +1,54 @@
+function flatListToMatrix(flatList) {
+  const len = Math.sqrt(flatList.length);
+  const matrix = [];
+  let index = 0;
+
+  for (let i = 0; i < len; i++) {
+      const row = [];
+
+      for (let j = 0; j < len; j++) {
+          row.push(flatList[index]);
+          index++;
+      }
+
+      matrix.push(row);
+  }
+
+  return matrix;
+}
+
 function CalculateWinner(squares) {
-  const winningLines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
-  for (let line of winningLines) {
-    const [a, b, c] = line;
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+
+  const board = flatListToMatrix(squares);
+  const size = board.length;
+
+  console.log(board)
+
+  // Check rows and columns
+  for (let i = 0; i < size; i++) {
+    if (board[i][0] === board[i][1] && board[i][1] === board[i][2]) {
+      console.log("Player", board[i][0], "wins (row)");
+      return board[i][0];
+    }
+
+    if (board[0][i] === board[1][i] && board[1][i] === board[2][i]) {
+      console.log("Player", board[0][i], "wins (column)");
+      return board[0][i];
     }
   }
+
+  // Check diagonals
+  if (board[0][0] === board[1][1] && board[1][1] === board[2][2]) {
+    console.log("Player", board[0][0], "wins (main diagonal)");
+    return board[0][0];
+  }
+
+  if (board[0][2] === board[1][1] && board[1][1] === board[2][0]) {
+    console.log("Player", board[0][2], "wins (anti-diagonal)");
+    return board[0][2];
+  }
+
+  console.log("No winner");
   return null;
 }
 

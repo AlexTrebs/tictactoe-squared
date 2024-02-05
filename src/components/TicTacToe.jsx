@@ -2,7 +2,6 @@ import { Paper } from "@mui/material";
 import Board from "./Board";
 import { useState } from "react";
 import CalculateWinner from "../utils/CalculateWinnerUtil";
-import { Grid } from "@mui/material";
 import Square from "./Square";
 import getSquareRender from "../utils/RenderSquareUtil";
 
@@ -26,6 +25,7 @@ function TicTacToe({
           onPlay={onPlay}
           value={squares[sqNum]}
           isPlayable={isPlayable}
+          sx={{ width: "33%", height: "100%" }}
         />
       );
     }
@@ -57,12 +57,12 @@ function TicTacToe({
   return (
     <Paper
       sx={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        position: "absolute",
         justifyContent: "center",
         alignItems: "center",
+        display: 'contents',
+        width: '-webkit-fill-available',
+        height: '100%',
+        position: 'relative',
       }}
     >
       {winner ? (

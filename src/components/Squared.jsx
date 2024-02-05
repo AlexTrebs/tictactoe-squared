@@ -1,10 +1,11 @@
 import TicTacToe from "./TicTacToe";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Board from "./Board";
-import { Grid, Paper } from "@mui/material";
+import { Paper } from "@mui/material";
 import Square from "./Square";
 import getSquareRender from "../utils/RenderSquareUtil";
 import GamePopover from "./GamePopover";
+import CalculateWinner from "../utils/CalculateWinnerUtil";
 
 function Squared({ value, squareCoord }) {
   const renderedSquares = [];
@@ -16,7 +17,6 @@ function Squared({ value, squareCoord }) {
   const [isPlayable, setIsPlayable] = useState(Array(9).fill(false));
   const [playableGame, setPlayableGame] = useState(null);
   const [openGame, setOpenGame] = useState(false);
-  const [isEnterable, setIsEnterable] = useState(Array(9).fill(true));
 
   function changeBooleanInList(list, index) {
     const temp = list.slice();
@@ -27,8 +27,6 @@ function Squared({ value, squareCoord }) {
 
   function onClick(sqNum) {
     setIsPlayable(changeBooleanInList(isPlayable, sqNum));
-    setIsEnterable(changeBooleanInList(isEnterable, sqNum));
-    console.log(changeBooleanInList(isEnterable, sqNum));
     setPlayableGame(renderedTicTacToe[sqNum]);
   }
 
@@ -36,6 +34,8 @@ function Squared({ value, squareCoord }) {
     const newWinners = squaresWinner.slice();
     newWinners[sqNum] = winner;
     setSquaresWinner(newWinners);
+
+    setWinner(CalculateWinner(newWinners));
   }
 
   for (let sqNum = 0; sqNum < 9; sqNum++) {
@@ -51,19 +51,24 @@ function Squared({ value, squareCoord }) {
     );
 
     renderedSquares.push(
-        <Square squareCoord={sqNum} onPlay={onClick} isPlayable={isEnterable[sqNum]}>
-          {renderedTicTacToe[sqNum]}
-        </Square>
+      <Square
+        squareCoord={sqNum}
+        onPlay={onClick}
+        isPlayable={true}
+        sx={{ width: "33%", height: "100%", display: "block" }}
+      >
+        {renderedTicTacToe[sqNum]}
+      </Square>
     );
   }
 
   return (
     <Paper
       sx={{
-        width: "100vmin",
-        height: "100vmin",
-        textAlign: '-webkit-center',
-        alignSelf: 'center',
+        width: "90vmin",
+        height: "90vmin",
+        textAlign: "-webkit-center",
+        alignSelf: "center",
       }}
     >
       {winner ? (

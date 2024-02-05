@@ -1,44 +1,37 @@
-import { Button } from "@mui/material";
 import getSquareRender from "../utils/RenderSquareUtil";
-import { Paper } from "@mui/material";
 
-function Square({ value, squareCoord, onPlay, children, isPlayable }) {
+function Square({ value, squareCoord, onPlay, children, isPlayable, sx }) {
   function onClick() {
     onPlay(squareCoord);
   }
 
   return (
     <>
-      {isPlayable ? (
-        <Button
+      {
+        <button 
           className="square"
-          onClick={onClick}
-          sx={{ width: "33%", height: "100%" }}
+          onClick={isPlayable ? onClick : null}
+          sx={sx}
           style={{
-            border: '5px solid',
-            float: 'initial',
-            marginRight: '0px',
-            marginTop: '1px',
+            //border: '3px solid',
+            //float: 'initial',
+            //marginRight: '0px',
+            //marginTop: '1px',
             padding: 0,
-            textAlign: 'center',
+            textAlign: '-webkit-center',
+            width: '100%',
+            height: '100%',
+            display: 'grid',
+            alignItems: 'center',
+            position: 'relative',
+            justifyItems: 'center',
+            maxWidth: 'initial',
+            maxHeight: 'initial',
         }}
         >
           {children ? children : getSquareRender(value)}
-        </Button>
-      ) : children ? (
-        <Paper
-          sx={{
-            width: "100%",
-            height: "100%",
-            textAlign: "-webkit-center",
-            alignSelf: "center",
-          }}
-        >
-          {children}
-        </Paper>
-      ) : (
-        getSquareRender(value)
-      )}
+        </button >
+      }
     </>
   );
 }
