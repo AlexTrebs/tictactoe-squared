@@ -1,7 +1,5 @@
 import { Paper } from "@mui/material";
 import Board from "./Board";
-import { useEffect, useState } from "react";
-import CalculateWinner from "../utils/CalculateWinnerUtil";
 import Square from "./Square";
 import getSquareRender from "../utils/RenderSquareUtil";
 
@@ -14,7 +12,6 @@ function TicTacToe({
 }) {
   function renderBoard(squ) {
     const renderedSquareslist = [];
-    console.log(squares);
 
     for (let sqNum = 0; sqNum < 9; sqNum++) {
       renderedSquareslist.push(
@@ -30,10 +27,6 @@ function TicTacToe({
     return renderedSquareslist;
   }
 
-
-  useEffect(() => {
-    console.log(squares);
-  },[squares])
   return (
     <Paper
       sx={{

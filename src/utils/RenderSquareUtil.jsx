@@ -7,7 +7,6 @@ function getSquareRender(value) {
     <Box component="section" />
   );
 
-  console.log(value);
   return value === "o" ? (
     <PanoramaFishEyeIcon style={{height: 'auto', width: '-webkit-fill-available'}} />
   ) : value === "x" ? (

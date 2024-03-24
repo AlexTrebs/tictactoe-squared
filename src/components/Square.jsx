@@ -4,7 +4,6 @@ import getSquareRender from "../utils/RenderSquareUtil";
 function Square({ value, squareCoord, onPlay, isPlayable, children }) {
   function onClick() {
     onPlay(squareCoord);
-    console.log(squareCoord, !isPlayable, value);
   }
 
   return (
