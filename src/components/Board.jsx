@@ -2,9 +2,7 @@ function Board({ squares }) {
   return (
     <div
       className="board"
-      container
       spacing={0}
-      class="grid-container"
       style={{
         position: "relative",
         display: 'grid',

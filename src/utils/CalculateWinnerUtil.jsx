@@ -22,8 +22,6 @@ function CalculateWinner(squares) {
   const board = flatListToMatrix(squares);
   const size = board.length;
 
-  console.log(board)
-
   // Check rows and columns
   for (let i = 0; i < size; i++) {
     if (board[i][0] === board[i][1] && board[i][1] === board[i][2]) {
