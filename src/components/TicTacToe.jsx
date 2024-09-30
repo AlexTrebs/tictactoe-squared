@@ -2,14 +2,9 @@ import { Paper } from "@mui/material";
 import Board from "./Board";
 import Square from "./Square";
 import getSquareRender from "../utils/RenderSquareUtil";
+import React from "react";
 
-function TicTacToe({
-  winner,
-  isPlayable,
-  index,
-  onPlay,
-  squares,
-}) {
+function TicTacToe({ winner, isPlayable, index, onPlay, squares }) {
   function renderBoard(squ) {
     const renderedSquareslist = [];
 
@@ -32,10 +27,10 @@ function TicTacToe({
       sx={{
         justifyContent: "center",
         alignItems: "center",
-        display: 'contents',
-        width: '-webkit-fill-available',
-        height: '100%',
-        position: 'relative',
+        display: "contents",
+        width: "-webkit-fill-available",
+        height: "100%",
+        position: "relative",
       }}
     >
       {winner ? (

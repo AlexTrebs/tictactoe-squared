@@ -1,3 +1,5 @@
+import React from "react";
+
 function Board({ squares }) {
   return (
     <div
@@ -5,16 +7,16 @@ function Board({ squares }) {
       spacing={0}
       style={{
         position: "relative",
-        display: 'grid',
-        alignItems: 'center',
-        alignContent: 'center',
-        justifyContent: 'center',
-        width: '100%',
-        height: '100%',
-        gridAutoColumns: '100%',
-        gridAutoRows: '100%',
-        gridTemplateRows: '33% 33% 33%',
-        gridTemplateColumns: '33% 33% 33%',
+        display: "grid",
+        alignItems: "center",
+        alignContent: "center",
+        justifyContent: "center",
+        width: "100%",
+        height: "100%",
+        gridAutoColumns: "100%",
+        gridAutoRows: "100%",
+        gridTemplateRows: "33% 33% 33%",
+        gridTemplateColumns: "33% 33% 33%",
       }}
     >
       {squares}

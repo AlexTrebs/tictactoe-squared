@@ -1,5 +1,6 @@
 import { Paper } from "@mui/material";
 import getSquareRender from "../utils/RenderSquareUtil";
+import React from "react";
 
 function Square({ value, squareCoord, onPlay, isPlayable, children }) {
   function onClick() {
@@ -8,48 +9,49 @@ function Square({ value, squareCoord, onPlay, isPlayable, children }) {
 
   return (
     <>
-      { isPlayable ?
-        <button 
+      {isPlayable ? (
+        <button
           className="square"
           onClick={onClick}
           disabled={!isPlayable}
           style={{
             padding: 0,
-            textAlign: '-webkit-center',
-            width: '100%',
-            height: '100%',
-            display: 'grid',
-            alignItems: 'center',
-            position: 'relative',
-            justifyItems: 'center',
-            maxWidth: 'initial',
-            maxHeight: 'initial',
-            backgroudColor: !isPlayable && '#333 !important',
-        }}
+            textAlign: "-webkit-center",
+            width: "100%",
+            height: "100%",
+            display: "grid",
+            alignItems: "center",
+            position: "relative",
+            justifyItems: "center",
+            maxWidth: "initial",
+            maxHeight: "initial",
+            backgroudColor: !isPlayable && "#333 !important",
+          }}
         >
           {children ? children : getSquareRender(value)}
-        </button > :
-        <Paper           
+        </button>
+      ) : (
+        <Paper
           style={{
-            backgroundColor: '#333',
+            backgroundColor: "#333",
             padding: 0,
-            textAlign: '-webkit-center',
-            width: '100%',
-            height: '100%',
-            display: 'grid',
-            alignItems: 'center',
-            position: 'relative',
-            justifyItems: 'center',
-            maxWidth: 'initial',
-            maxHeight: 'initial',
-            backgroudColor: !isPlayable && '#333 !important',
-            boxSizing: 'border-box',
-            border: '1px #000 solid',
+            textAlign: "-webkit-center",
+            width: "100%",
+            height: "100%",
+            display: "grid",
+            alignItems: "center",
+            position: "relative",
+            justifyItems: "center",
+            maxWidth: "initial",
+            maxHeight: "initial",
+            backgroudColor: !isPlayable && "#333 !important",
+            boxSizing: "border-box",
+            border: "1px #000 solid",
           }}
-          >
+        >
           {children ? children : getSquareRender(value)}
         </Paper>
-      }
+      )}
     </>
   );
 }

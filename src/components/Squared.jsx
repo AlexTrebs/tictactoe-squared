@@ -5,6 +5,7 @@ import { Paper } from "@mui/material";
 import Square from "./Square";
 import getSquareRender from "../utils/RenderSquareUtil";
 import CalculateWinner from "../utils/CalculateWinnerUtil";
+import React from "react";
 
 function Squared() {
   const renderedSquares = [];
@@ -13,17 +14,19 @@ function Squared() {
   const [winner, setWinner] = useState(null);
   const [squaresWinner, setSquaresWinner] = useState(Array(9).fill(null));
   const [isPlayable, setIsPlayable] = useState(Array(9).fill(true));
-  const [allSquares, setAllSquares] = useState(Array(9).fill(Array(9).fill(null)));
-  
+  const [allSquares, setAllSquares] = useState(
+    Array(9).fill(Array(9).fill(null))
+  );
+
   function toggleBooleanInList(list, index) {
     const temp = list.slice();
     temp[index] = !temp[index];
 
     return temp;
   }
-    
+
   function onClick(sqNum) {
-    if(!isPlayable.includes(false) || isPlayable[sqNum] === false){
+    if (!isPlayable.includes(false) || isPlayable[sqNum] === false) {
       setIsPlayable(toggleBooleanInList(isPlayable, sqNum));
     }
   }
@@ -36,15 +39,30 @@ function Squared() {
     setWinner(CalculateWinner(newWinners));
   }
 
-  function nextRound(pickedSquare, prevSquare, currentWinner){
-    setLastPlayedNoughts(!lastPlayedNoughts);
+  /**
+   * Checks if was a winning play, then sets
+   *
+   * @param {number} pickedSquare Square within tictactoe game picked.
+   * @param {number} playedSquare Square within squared game to play.
+   * @param {String} currentWinner Current winner for square
+   */
+  function nextRound(pickedSquare, playedSquare, currentWinner) {
+    setLastPlayedNoughts((lastPlayed) => !lastPlayed);
 
     if (currentWinner != null) {
-      setWinners(currentWinner, prevSquare);
-    }  
-
-    if(prevSquare !== pickedSquare && squaresWinner[pickedSquare] === null){
-      setIsPlayable(toggleBooleanInList(toggleBooleanInList(isPlayable, prevSquare), pickedSquare));
+      setWinners(currentWinner, playedSquare);
+    }
+    if (squaresWinner[pickedSquare] === null && currentWinner == null) {
+      setIsPlayable((listOfPlayable) =>
+        toggleBooleanInList(
+          toggleBooleanInList(listOfPlayable, playedSquare),
+          pickedSquare
+        )
+      );
+    } else {
+      setIsPlayable((listOfPlayable) =>
+        toggleBooleanInList(listOfPlayable, playedSquare)
+      );
     }
   }
 
@@ -62,13 +80,15 @@ function Squared() {
       squares[coord[1]] = "o";
     }
 
-    setAllSquares(allSquares.map((elem, index) => {
-      if(index.toString() === coord[0]){
-        return squares;
-      } else {
-        return elem;
-      };
-    }));
+    setAllSquares(
+      allSquares.map((elem, index) => {
+        if (index.toString() === coord[0]) {
+          return squares;
+        } else {
+          return elem;
+        }
+      })
+    );
 
     nextRound(parseInt(coord[1]), parseInt(coord[0]), CalculateWinner(squares));
   }
