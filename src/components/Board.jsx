@@ -15,8 +15,8 @@ function Board({ squares }) {
         height: "100%",
         gridAutoColumns: "100%",
         gridAutoRows: "100%",
-        gridTemplateRows: "33% 33% 33%",
-        gridTemplateColumns: "33% 33% 33%",
+        gridTemplateRows: "33.33% 33.34% 33.33%",
+        gridTemplateColumns: "33.33% 33.34% 33.33%",
       }}
     >
       {squares}
