@@ -1,8 +1,8 @@
+import React from "react";
 import { Paper } from "@mui/material";
 import Board from "./Board";
 import Square from "./Square";
 import getSquareRender from "../utils/RenderSquareUtil";
-import React from "react";
 
 function TicTacToe({ winner, isPlayable, index, onPlay, squares }) {
   function renderBoard(squ) {
