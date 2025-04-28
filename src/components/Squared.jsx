@@ -1,11 +1,10 @@
+import React, { useState, useEffect } from "react";
 import TicTacToe from "./TicTacToe";
-import { useState } from "react";
 import Board from "./Board";
 import { Paper } from "@mui/material";
 import Square from "./Square";
 import getSquareRender from "../utils/RenderSquareUtil";
 import CalculateWinner from "../utils/CalculateWinnerUtil";
-import React from "react";
 
 function Squared() {
   const renderedSquares = [];
@@ -52,7 +51,7 @@ function Squared() {
     if (currentWinner != null) {
       setWinners(currentWinner, playedSquare);
     }
-    if (squaresWinner[pickedSquare] === null && currentWinner == null) {
+    if ((squaresWinner[pickedSquare] === null && currentWinner === null) || (pickedSquare !== playedSquare && currentWinner !== null)) {
       setIsPlayable((listOfPlayable) =>
         toggleBooleanInList(
           toggleBooleanInList(listOfPlayable, playedSquare),
@@ -98,7 +97,7 @@ function Squared() {
       <Square
         squareCoord={`${sqNum}`}
         onPlay={onClick}
-        isPlayable={isPlayable[sqNum]}
+        isPlayable={isPlayable[sqNum] && !squaresWinner[sqNum]}
         key={sqNum}
       >
         <TicTacToe
@@ -117,13 +116,36 @@ function Squared() {
     );
   }
 
+  useEffect(() => {
+    const container = document.getElementById('tictactoe-contianer'); 
+    const wrapper = document.getElementById('tictactoe-wrapper');
+  
+    function adjustWrapperSize() { 
+      const containerWidth = container.clientWidth; 
+      const containerHeight = container.clientHeight; // Calculate the minimum of the container's width and height 
+      const minDimension = Math.min(containerWidth, containerHeight); // Set the wrapper's width and height to the minimum dimension 
+      console.log(minDimension);
+      wrapper.style.width = `${minDimension-4}px`; 
+      wrapper.style.height = `${minDimension-4}px`; // Center the wrapper within the container 
+      wrapper.style.visibility = 'visible';
+    } // Initial adjustment 
+  
+    adjustWrapperSize(); // Adjust on window resize 
+    
+    window.addEventListener('resize', adjustWrapperSize);
+  },[])
+
   return (
     <Paper
+      id="tictactoe-wrapper"
       sx={{
-        width: "90vmin",
-        height: "90vmin",
         textAlign: "-webkit-center",
         alignSelf: "center",
+        backgroundColor: '#0000',
+        transition: 'none',
+        boxShadow: 'none',
+        visibility: 'none',
+        padding: '2vmin'
       }}
     >
       {winner ? (

@@ -1,6 +1,7 @@
 import { Paper } from "@mui/material";
 import getSquareRender from "../utils/RenderSquareUtil";
 import React from "react";
+import { BorderColor } from "@mui/icons-material";
 
 function Square({ value, squareCoord, onPlay, isPlayable, children }) {
   function onClick() {
@@ -15,6 +16,7 @@ function Square({ value, squareCoord, onPlay, isPlayable, children }) {
           onClick={onClick}
           disabled={!isPlayable}
           style={{
+            backgroundColor: "#fff",
             padding: 0,
             textAlign: "-webkit-center",
             width: "100%",
@@ -25,7 +27,8 @@ function Square({ value, squareCoord, onPlay, isPlayable, children }) {
             justifyItems: "center",
             maxWidth: "initial",
             maxHeight: "initial",
-            backgroudColor: !isPlayable && "#333 !important",
+            borderRadius: '0px',
+            border: 'solid 2px black'
           }}
         >
           {children ? children : getSquareRender(value)}
@@ -33,7 +36,7 @@ function Square({ value, squareCoord, onPlay, isPlayable, children }) {
       ) : (
         <Paper
           style={{
-            backgroundColor: "#333",
+            backgroundColor: "#aaa",
             padding: 0,
             textAlign: "-webkit-center",
             width: "100%",
@@ -44,9 +47,9 @@ function Square({ value, squareCoord, onPlay, isPlayable, children }) {
             justifyItems: "center",
             maxWidth: "initial",
             maxHeight: "initial",
-            backgroudColor: !isPlayable && "#333 !important",
             boxSizing: "border-box",
-            border: "1px #000 solid",
+            border: "2px #000 solid",
+            borderRadius: '0px',
           }}
         >
           {children ? children : getSquareRender(value)}
