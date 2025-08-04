@@ -1,7 +1,6 @@
 import { Paper } from "@mui/material";
 import getSquareRender from "../utils/RenderSquareUtil";
 import React from "react";
-import { BorderColor } from "@mui/icons-material";
 
 function Square({ value, squareCoord, onPlay, isPlayable, children }) {
   function onClick() {
