@@ -1,0 +1,17 @@
+@use './variables';
+
+@mixin mq-is-col1 {
+  @container root (max-width: #{variables.$small}) {
+    @media (orientation: portrait) {
+      @content;
+    }
+  }
+}
+@mixin mq-is-col2 {
+  @container root (min-width: #{variables.$small}) {
+    @content;
+  }
+  @media (orientation: landscape) {
+    @content;
+  }
+}

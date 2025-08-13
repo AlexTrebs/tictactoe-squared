@@ -1,0 +1,70 @@
+@use './media-queries' as mq;
+@use './variables';
+
+#{variables.$rcontrols-tag},
+.controls-container {
+  grid-area: controls;
+  padding: calc(variables.$root-min * 2);
+  display: flex; 
+  flex-direction: column;
+  place-items: center;
+}
+
+.controls {
+  min-width: calc(variables.$controls-min-width - variables.$root-min * 4);
+  max-width: calc(variables.$controls-max-width - variables.$root-min * 4);
+  width: 100%;
+}
+
+.top-bar {
+  height: variables.$site-header-height;
+}
+
+.tictactoe-container {
+  grid-area: board;
+}
+
+#tictactoe-wrapper {
+  aspect-ratio: 1 / 1;
+  padding: calc(variables.$root-min * 2);
+
+  @include mq.mq-is-col1 {
+    width: variables.$col1-uniboard-max-size;
+  }
+
+  @include mq.mq-is-col2 {
+    width: variables.$col2-uniboard-max-size;
+  }
+}
+
+#game {
+  display: grid;
+  grid-template-rows: 1fr;
+  height: auto;
+  justify-content: center;
+}
+
+.game_grid {
+  display: grid;
+  justify-self: center;
+  align-self: start;
+
+  @include mq.mq-is-col1 {
+    grid-template-rows: auto auto;
+    grid-template-areas:'board' 'controls';
+    grid-template-columns: variables.$col1-uniboard-max-size;
+
+    align-content: center;
+  }
+
+  @include mq.mq-is-col2 {
+    grid-template-areas:'board controls';
+    grid-template-columns: variables.$col2-uniboard-max-size variables.$controls-width;
+    grid-template-rows: auto; // 0 to prevent `voice` from moving the table off center
+    grid-column-gap: variables.$block-gap;
+
+    width: fit-content;
+    width: calc(#{variables.$col2-uniboard-max-size} + variables.$controls-width);
+    height: #{variables.$col2-uniboard-max-size};
+  }
+}
