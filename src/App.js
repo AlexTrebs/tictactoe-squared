@@ -1,21 +1,20 @@
-import React, { useEffect } from "react";
-import { useTheme } from "@mui/material";
-import Squared from "./components/Squared";
-import { Container, ThemeProvider } from "@mui/material";
+import './styles/scss/main.scss';
+import { Container, ThemeProvider, useTheme } from '@mui/material';
+import React, { useEffect } from 'react';
+import Controls from './components/Controls';
 import { Provider } from 'react-redux';
-import store from './stores/gameState/gameStateStore'; // path to your store.js
-import "./styles/scss/main.scss";
-import Controls from "./components/Controls";
-import TopBar from "./components/TopBar";
-import useAnonId from "./hooks/useAnonId";
-import { useMultiplayer } from "./hooks/useMultiplayer";
-import SnackbarList from "./components/SnackbarList";
+import SnackbarList from './components/SnackbarList';
+import Squared from './components/Squared';
+import TopBar from './components/TopBar';
+import store from './stores/gameState/gameStateStore';
+import useAnonId from './hooks/useAnonId';
 
 export default function App() {
   const theme = useTheme();
   useAnonId();
 
   useEffect(() => {
+    // eslint-disable-next-line no-undef
     const rootElement = document.documentElement;
 
     function updateRootUnits() {
@@ -24,6 +23,7 @@ export default function App() {
       rootElement.style.setProperty('--rh', `${rect.height / 100}px`);
     }
 
+    // eslint-disable-next-line no-undef
     const resizeObserver = new ResizeObserver(updateRootUnits);
     resizeObserver.observe(rootElement);
     updateRootUnits();
@@ -36,8 +36,8 @@ export default function App() {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <TopBar />
-          <Container id="game" >
-            <div className="game_grid">
+          <Container id='game' >
+            <div className='game_grid'>
               <Squared />
               <Controls />
             </div>

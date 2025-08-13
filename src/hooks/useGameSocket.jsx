@@ -1,5 +1,9 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
-
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 export function useGameSocket(wsUrl) {
   const wsRef = useRef(null);
@@ -7,7 +11,10 @@ export function useGameSocket(wsUrl) {
   const [status, setStatus] = useState('idle');
 
   useEffect(() => {
-    if (!wsUrl) return;
+    if (!wsUrl) {
+      return;
+    }
+
     setStatus('connecting');
 
     const ws = new WebSocket(wsUrl);
@@ -22,28 +29,33 @@ export function useGameSocket(wsUrl) {
       }, 30000);
     };
 
-    ws.onmessage = (e) => {
-      const msg = JSON.parse(e.data);
-      // handle msg
+    ws.onmessage = message => {
+      const msg = JSON.parse(message.data);
     };
 
     ws.onclose = () => {
       setStatus('closed');
-      if (timer.current) clearInterval(timer.current);
+      if (timer.current) {
+        clearInterval(timer.current);
+      }
     };
 
     ws.onerror = () => {
       setStatus('error');
-      if (timer.current) clearInterval(timer.current);
+      if (timer.current) {
+        clearInterval(timer.current);
+      }
     };
 
     return () => {
       ws.close();
-      if (timer.current) clearInterval(timer.current);
+      if (timer.current) {
+        clearInterval(timer.current);
+      }
     };
   }, [wsUrl]);
 
-  const send = useCallback((payload) => {
+  const send = useCallback(payload => {
     if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
       wsRef.current.send(JSON.stringify(payload));
     }

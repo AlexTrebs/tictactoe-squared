@@ -1,29 +1,27 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import { Button, Paper } from "@mui/material";
-import AlertSnackbar from './SnackbarList';
-import { useMultiplayer } from '../hooks/useMultiplayer';
+import { Button, Paper } from '@mui/material';
+import React, { useMemo, useState } from 'react';
 import debounce from 'lodash/debounce';
+import { useMultiplayer } from '../hooks/useMultiplayer';
 
 function Controls() {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const { start, join, sessionId } = useMultiplayer();
 
-  const onClick = async (callback) => {
+  const onClick = async callback => {
     setLoading(true);
-    const sessionId = await callback();
+    await callback();
     setLoading(false);
   };
 
   const debouncedOnClick = useMemo(
     () =>
       debounce(onClick, 300),
-    [onClick]
+    [onClick],
   );
 
   return (
-    <div className="controls-container">
-      <Paper className="controls" style={{display: 'flex', flexDirection: 'column'}}>
+    <div className='controls-container'>
+      <Paper className='controls' style={{ display: 'flex', flexDirection: 'column' }}>
         <Button>
           New Local Game
         </Button>
@@ -34,7 +32,6 @@ function Controls() {
           Join game
         </Button>
       </Paper>
-      <AlertSnackbar message={error} severity={'error'} setMessage={setError} />
     </div>
   );
 }

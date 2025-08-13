@@ -1,11 +1,11 @@
 import {
-  SET_WINNER,
-  TOGGLE_PLAYABLE,
-  SET_SQUARES_WINNER,
-  SET_ALL_SQUARES,
-  TOGGLE_LAST_PLAYED,
   PLAY_SQUARE,
-  TOGGLE_PLAYABLE_LIST
+  SET_ALL_SQUARES,
+  SET_SQUARES_WINNER,
+  SET_WINNER,
+  TOGGLE_LAST_PLAYED,
+  TOGGLE_PLAYABLE,
+  TOGGLE_PLAYABLE_LIST,
 } from './gameStateActions';
 
 const initialState = {
@@ -36,8 +36,7 @@ export default function gameStateReducer(state = initialState, action) {
     case SET_ALL_SQUARES: {
       const { index, squares } = action.payload;
       const newAllSquares = state.allSquares.map((set, i) =>
-        i === index ? squares : set
-      );
+        i === index ? squares : set);
       return { ...state, allSquares: newAllSquares };
     }
 
@@ -47,14 +46,13 @@ export default function gameStateReducer(state = initialState, action) {
     case PLAY_SQUARE: {
       const { boardIndex, newBoard } = action.payload;
       const newSquares = state.allSquares.map((set, i) =>
-        i === boardIndex ? newBoard : set
-      );
+        i === boardIndex ? newBoard : set);
       return { ...state, allSquares: newSquares };
     }
 
     case TOGGLE_PLAYABLE_LIST: {
       const { pickedSquare, playedSquare, condition } = action.payload;
-      let updatedPlayable = [...state.isPlayable];
+      const updatedPlayable = [...state.isPlayable];
 
       if (condition) {
         updatedPlayable[pickedSquare] = !updatedPlayable[pickedSquare];
