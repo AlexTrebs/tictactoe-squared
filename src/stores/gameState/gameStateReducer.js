@@ -6,7 +6,7 @@ import {
   TOGGLE_LAST_PLAYED,
   PLAY_SQUARE,
   TOGGLE_PLAYABLE_LIST
-} from '../action/gameStateActions';
+} from './gameStateActions';
 
 const initialState = {
   lastPlayedNoughts: false,
@@ -70,6 +70,3 @@ export default function gameStateReducer(state = initialState, action) {
       return state;
   }
 }
-
-
-

@@ -1,4 +1,3 @@
-import * as React from "react";
 import Popover from "@mui/material/Popover";
 
 export default function GamePopover({ isOpened, game }) {

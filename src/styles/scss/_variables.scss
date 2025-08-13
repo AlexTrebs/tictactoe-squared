@@ -1,0 +1,55 @@
+$root-width: var(--rw);
+$root-height: var(--rh);
+$root-min: min($root-width, $root-height);
+$root-max: max($root-width, $root-height);
+
+$block-gap: $root-max/5;
+
+$site-header-tall-height: 60px;
+$site-header-short-height: 40px;
+$site-header-sticky-max-width: 1780px;
+$site-header-height: $site-header-tall-height;
+$site-header-margin: 0px;
+$site-header-margin-extra: 1.3em;
+$site-header-outer-height: calc($site-header-height + $site-header-margin);
+
+$xxx-small: 400px;
+$xx-small: 500px;
+$x-small: 650px;
+$small: 800px;
+$medium: 980px;
+$large: 1120px;
+$x-large: 1260px;
+$xx-large: 1500px;
+
+$x-short: 400px;
+$short: 500px;
+$tall: 600px;
+$x-tall: 700px;
+
+$rcontrols-tag: 'rm6';
+
+$scrollbar-width: 20px;
+
+$min-bottom-margin: 0px;
+$controls-min-height: 150px;
+$controls-min-width: 300px;
+$controls-max-width: 500px;
+$controls-width: minmax(#{$controls-min-width}, #{$controls-max-width});
+
+$col1-uniboard-max-width: calc(
+  #{$root-width} * 100 - 24px
+);
+$col1-uniboard-max-height: calc(
+  #{$root-height} * 100 - #{$site-header-outer-height} - #{$block-gap} - #{$min-bottom-margin} - #{$controls-min-height}
+);
+$col1-uniboard-max-size: min(#{$col1-uniboard-max-width}, #{$col1-uniboard-max-height});
+
+$col2-uniboard-max-width: calc(
+  #{$root-width} * 100 - #{$block-gap} - #{$controls-min-width}
+);
+$col2-uniboard-max-height: calc(
+  #{$root-height} * 100 - #{$site-header-outer-height} - #{$min-bottom-margin}
+);
+$col2-uniboard-max-size: min(#{$col2-uniboard-max-width}, #{$col2-uniboard-max-height});
+ 
