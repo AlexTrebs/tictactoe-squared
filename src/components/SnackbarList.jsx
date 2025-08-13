@@ -1,15 +1,15 @@
-import React from "react";
-import { useSnackbarStore } from '../stores/snackbarStore';
+import { Alert, Snackbar, Stack } from '@mui/material';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Snackbar, Alert, Stack } from '@mui/material';
+import React from 'react';
+import { useSnackbarStore } from '../stores/snackbarStore';
 
 export default function SnackbarList() {
   const snackbars = useSnackbarStore(s => s.snackbars);
   const closeSnackbar = useSnackbarStore(s => s.closeSnackbar);
 
   return (
-    <Stack 
-      spacing={1} 
+    <Stack
+      spacing={1}
       sx={{
         position: 'fixed',
         bottom: 16,
@@ -32,25 +32,28 @@ export default function SnackbarList() {
               open
               autoHideDuration={3000}
               onClose={(e, reason) => {
-                if (reason === 'clickaway') return;
+                if (reason === 'clickaway') {
+                  return;
+                }
+
                 closeSnackbar(id);
               }}
               sx={{
                 position: 'static',
                 transform: 'none',
                 width: 'auto',
-                alignSelf: 'flex-end'
+                alignSelf: 'flex-end',
               }}
             >
               <Alert
                 onClose={() => closeSnackbar(id)}
                 severity={severity}
-                variant="filled"
+                variant='filled'
                 sx={{
                   width: 'auto',
                   maxWidth: '100%',
                   whiteSpace: 'pre-wrap',
-                  wordBreak: 'break-word'
+                  wordBreak: 'break-word',
                 }}
               >
                 {message}

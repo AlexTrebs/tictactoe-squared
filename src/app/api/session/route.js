@@ -1,9 +1,7 @@
-// src/app/api/session/route.js
 import { NextResponse } from 'next/server';
+import getWsUrl from '../../../lib/getWsUrl';
 
-const GAME_SERVER = process.env.GAME_SERVER;
-const WS_SERVER = process.env.GAME_SERVER;
-const API_TOKEN = process.env.API_TOKEN;
+const { API_TOKEN, GAME_SERVER, WS_SERVER } = process.env;
 
 // On load if client has existing, return exisiting.
 export async function GET(request) {
@@ -16,14 +14,14 @@ export async function GET(request) {
   try {
     const resp = await fetch(`${GAME_SERVER}/session/exists?token=${API_TOKEN}`, {
       method: 'GET',
-      headers: { 'Accept': 'application/json' },
-      body: JSON.stringify({ anonId })
+      headers: { Accept: 'application/json' },
+      body: JSON.stringify({ anonId }),
     });
 
     if (resp.status === 404) {
       return NextResponse.json({ exists: false }, { status: 200 });
     }
-    
+
     if (!resp.ok) {
       return NextResponse.json({ error: 'Failed to check session' }, { status: 502 });
     }
@@ -34,7 +32,9 @@ export async function GET(request) {
     }
 
     return NextResponse.json({ exists: true, sessionId: data.sessionId, wsUrl: getWsUrl(WS_SERVER, data.queueId, anonId) }, { status: 200 });
-  } catch {
+  } catch (err) {
+    console.log(`Error in finding current session: ${err}`);
+
     return NextResponse.json({ error: 'Upstream error' }, { status: 502 });
   }
 }
@@ -62,6 +62,8 @@ export async function POST(request) {
 
     return NextResponse.json({ sessionId: data.sessionId, wsUrl: getWsUrl(WS_SERVER, data.queueId, anonId) }, { status: 200 });
   } catch (err) {
+    console.log(`Error in creating new session: ${err}`);
+
     return NextResponse.json({ error: 'Upstream error' }, { status: 502 });
   }
 }

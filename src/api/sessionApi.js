@@ -2,10 +2,12 @@
 export async function startSession() {
   const res = await fetch('/api/session', {
     method: 'POST',
-    credentials: 'include'
+    credentials: 'include',
   });
 
-  if (!res.ok) throw new Error('Failed to start session');
+  if (!res.ok) {
+    throw new Error('Failed to start session');
+  }
 
   return res.json(); // { sessionId, wsUrl }
 }
@@ -18,7 +20,9 @@ export async function joinSession(sessionId) {
     headers: { 'Content-Type': 'application/json' },
   });
 
-  if (!res.ok) throw new Error('Failed to join session');
+  if (!res.ok) {
+    throw new Error('Failed to join session');
+  }
 
   return { sessionId, ...res.json() }; // { sessionId, wsUrl }
 }
@@ -27,9 +31,13 @@ export async function joinSession(sessionId) {
 export async function getMySession() {
   const res = await fetch('/api/session', { credentials: 'include' });
 
-  if (res.status === 204) return null;
+  if (res.status === 204) {
+    return null;
+  }
 
-  if (!res.ok) throw new Error('Failed to fetch my session');
+  if (!res.ok) {
+    throw new Error('Failed to fetch my session');
+  }
 
   return res.json(); // { sessionId, wsUrl }
 }

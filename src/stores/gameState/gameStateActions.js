@@ -1,4 +1,4 @@
-import CalculateWinner from '../../utils/CalculateWinnerUtil';
+import calculateWinner from '../../utils/calculateWinnerUtil';
 
 export const PLAY_SQUARE = 'PLAY_SQUARE';
 export const ADVANCE_ROUND = 'ADVANCE_ROUND';
@@ -9,12 +9,12 @@ export const SET_ALL_SQUARES = 'SET_ALL_SQUARES';
 export const TOGGLE_LAST_PLAYED = 'TOGGLE_LAST_PLAYED';
 export const TOGGLE_PLAYABLE_LIST = 'TOGGLE_PLAYABLE_LIST';
 
-export const setWinner = (winner) => ({
+export const setWinner = winner => ({
   type: SET_WINNER,
   payload: winner,
 });
 
-export const togglePlayable = (index) => ({
+export const togglePlayable = index => ({
   type: TOGGLE_PLAYABLE,
   payload: index,
 });
@@ -38,8 +38,10 @@ export const playSquare = (i, lastPlayedNoughts) => {
   return (dispatch, getState) => {
     const { allSquares } = getState().gameState;
     const board = [...allSquares[boardIndex]];
-    
-    if (board[squareIndex] || CalculateWinner(board)) return;
+
+    if (board[squareIndex] || calculateWinner(board)) {
+      return;
+    }
 
     board[squareIndex] = lastPlayedNoughts ? 'x' : 'o';
 
@@ -48,35 +50,32 @@ export const playSquare = (i, lastPlayedNoughts) => {
       payload: { boardIndex, newBoard: board },
     });
 
-    const currentWinner = CalculateWinner(board);
+    const currentWinner = calculateWinner(board);
     dispatch(advanceRound(squareIndex, boardIndex, currentWinner));
   };
 };
 
-export const advanceRound = (pickedSquare, playedSquare, currentWinner) => {
-  return (dispatch, getState) => {
-    const { squaresWinner } = getState().gameState;
+export const advanceRound = (pickedSquare, playedSquare, currentWinner) => (dispatch, getState) => {
+  const { squaresWinner } = getState().gameState;
 
-    if (currentWinner) {
-      dispatch({
-        type: SET_SQUARES_WINNER,
-        payload: { squareIndex: playedSquare, winner: currentWinner },
-      });
-
-      const newWinners = [...squaresWinner];
-      newWinners[playedSquare] = currentWinner;
-      dispatch(setWinner(CalculateWinner(newWinners)));
-    }
-
-    dispatch({ type: TOGGLE_LAST_PLAYED });
-
-    const condition =
-      (squaresWinner[pickedSquare] === null && currentWinner === null) ||
-      (pickedSquare !== playedSquare && currentWinner !== null);
-
+  if (currentWinner) {
     dispatch({
-      type: TOGGLE_PLAYABLE_LIST,
-      payload: { pickedSquare, playedSquare, condition },
+      type: SET_SQUARES_WINNER,
+      payload: { squareIndex: playedSquare, winner: currentWinner },
     });
-  };
+
+    const newWinners = [...squaresWinner];
+    newWinners[playedSquare] = currentWinner;
+    dispatch(setWinner(calculateWinner(newWinners)));
+  }
+
+  dispatch({ type: TOGGLE_LAST_PLAYED });
+
+  const condition
+    = (squaresWinner[pickedSquare] === null && currentWinner === null) || (pickedSquare !== playedSquare && currentWinner !== null);
+
+  dispatch({
+    type: TOGGLE_PLAYABLE_LIST,
+    payload: { pickedSquare, playedSquare, condition },
+  });
 };
