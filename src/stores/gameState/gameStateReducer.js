@@ -6,6 +6,7 @@ import {
   TOGGLE_LAST_PLAYED,
   TOGGLE_PLAYABLE,
   TOGGLE_PLAYABLE_LIST,
+  TOGGLE_GAME_STARTED_LIST,
 } from './gameStateActions';
 
 const initialState = {
@@ -14,6 +15,8 @@ const initialState = {
   squaresWinner: Array(9).fill(null),
   isPlayable: Array(9).fill(true),
   allSquares: Array(9).fill(Array(9).fill(null)),
+  gameStarted: false,
+  history: [],
 };
 
 export default function gameStateReducer(state = initialState, action) {
@@ -62,6 +65,12 @@ export default function gameStateReducer(state = initialState, action) {
       }
 
       return { ...state, isPlayable: updatedPlayable };
+    }
+
+    case TOGGLE_GAME_STARTED_LIST: {
+      const { gameStarted } = action.payload;
+
+      return { ...state, gameStarted: !gameStarted };
     }
 
     default:
