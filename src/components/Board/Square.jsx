@@ -1,10 +1,10 @@
 import { Paper } from '@mui/material';
 import PropTypes from 'prop-types';
 import React from 'react';
-import getSquareRender from '../utils/RenderSquareUtil';
+import getSquareRender from '../../utils/renderSquareUtil';
 
 function Square({ value, squareCoord, onPlay, isPlayable, children }) {
-  function onClick() {
+  const onClick = () => {
     onPlay(squareCoord);
   }
 
