@@ -8,6 +8,7 @@ export const SET_SQUARES_WINNER = 'SET_SQUARES_WINNER';
 export const SET_ALL_SQUARES = 'SET_ALL_SQUARES';
 export const TOGGLE_LAST_PLAYED = 'TOGGLE_LAST_PLAYED';
 export const TOGGLE_PLAYABLE_LIST = 'TOGGLE_PLAYABLE_LIST';
+export const TOGGLE_GAME_STARTED = 'TOGGLE_GAME_STARTED ';
 
 export const setWinner = winner => ({
   type: SET_WINNER,

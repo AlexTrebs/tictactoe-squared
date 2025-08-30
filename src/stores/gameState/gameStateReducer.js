@@ -3,6 +3,7 @@ import {
   SET_ALL_SQUARES,
   SET_SQUARES_WINNER,
   SET_WINNER,
+  TOGGLE_GAME_STARTED ,
   TOGGLE_LAST_PLAYED,
   TOGGLE_PLAYABLE,
   TOGGLE_PLAYABLE_LIST,
@@ -13,7 +14,9 @@ const initialState = {
   winner: null,
   squaresWinner: Array(9).fill(null),
   isPlayable: Array(9).fill(true),
-  allSquares: Array(9).fill(Array(9).fill(null)),
+  allSquares: Array.from({ length: 9 }, () => Array(9).fill(null)),
+  gameStarted: false,
+  history: [],
 };
 
 export default function gameStateReducer(state = initialState, action) {
@@ -62,6 +65,12 @@ export default function gameStateReducer(state = initialState, action) {
       }
 
       return { ...state, isPlayable: updatedPlayable };
+    }
+
+    case TOGGLE_GAME_STARTED : {
+      const { gameStarted } = action.payload;
+
+      return { ...state, gameStarted: !gameStarted };
     }
 
     default:
