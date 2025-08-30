@@ -61,7 +61,6 @@ function calculateWinner(squares) {
     return board[0][2];
   }
 
-  console.log('No winner');
   return null;
 }
 

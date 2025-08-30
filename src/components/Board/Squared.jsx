@@ -1,11 +1,11 @@
-import { playSquare, togglePlayable } from '../stores/gameState/gameStateActions';
+import { playSquare, togglePlayable } from '../../stores/gameState/gameStateActions';
 import { useDispatch, useSelector } from 'react-redux';
 import Board from './Board';
 import { Paper } from '@mui/material';
 import React from 'react';
 import Square from './Square';
 import TicTacToe from './TicTacToe';
-import getSquareRender from '../utils/RenderSquareUtil';
+import getSquareRender from '../../utils/renderSquareUtil';
 
 function Squared() {
   const renderedSquares = [];
@@ -13,7 +13,7 @@ function Squared() {
   const dispatch = useDispatch();
   const state = useSelector(state => state.gameState);
 
-  function handlePlay(coord) {
+  const handlePlay = coord => {
     dispatch(playSquare(coord, state.lastPlayedNoughts));
   }
 
@@ -22,20 +22,22 @@ function Squared() {
   };
 
   for (let sqNum = 0; sqNum < 9; sqNum++) {
-    renderedSquares.push(<Square
-      squareCoord={`${sqNum}`}
-      onPlay={handleSquareClick}
-      isPlayable={state.isPlayable[sqNum] && !state.squaresWinner[sqNum]}
-      key={sqNum}
-    >
-      <TicTacToe
-        winner={state.squaresWinner[sqNum]}
-        isPlayable={!state.isPlayable[sqNum]}
-        index={sqNum}
-        squares={state.allSquares[sqNum]}
-        onPlay={handlePlay}
-      />
-    </Square>);
+    renderedSquares.push(
+      <Square
+        squareCoord={`${sqNum}`}
+        onPlay={handleSquareClick}
+        isPlayable={state.isPlayable[sqNum] && !state.squaresWinner[sqNum] && state.gameStarted}
+        key={sqNum}
+      >
+        <TicTacToe
+          winner={state.squaresWinner[sqNum]}
+          isPlayable={!state.isPlayable[sqNum] && state.gameStarted}
+          index={sqNum}
+          squares={state.allSquares[sqNum]}
+          onPlay={handlePlay}
+        />
+      </Square>,
+    );
   }
 
   return (

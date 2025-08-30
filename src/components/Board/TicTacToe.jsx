@@ -2,10 +2,10 @@ import Board from './Board';
 import { Paper } from '@mui/material';
 import React from 'react';
 import Square from './Square';
-import getSquareRender from '../utils/RenderSquareUtil';
+import getSquareRender from '../../utils/renderSquareUtil';
 
 function TicTacToe({ winner, isPlayable, index, onPlay, squares }) {
-  function renderBoard(squ) {
+  const renderBoard = squ => {
     const renderedSquareslist = [];
 
     for (let sqNum = 0; sqNum < 9; sqNum++) {
