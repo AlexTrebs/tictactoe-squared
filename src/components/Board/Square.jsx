@@ -1,12 +1,12 @@
 import { Paper } from '@mui/material';
 import PropTypes from 'prop-types';
-import React from 'react';
-import getSquareRender from '../utils/RenderSquareUtil';
+import React, { useCallback } from 'react';
+import getSquareRender from '../../utils/renderSquareUtil';
 
 function Square({ value, squareCoord, onPlay, isPlayable, children }) {
-  function onClick() {
+  const onClick = useCallback(() => {
     onPlay(squareCoord);
-  }
+  }, [onPlay, squareCoord]);
 
   return (
     <>
@@ -62,11 +62,11 @@ function Square({ value, squareCoord, onPlay, isPlayable, children }) {
 }
 
 Square.propTypes = {
-  value: React.string,
+  value: PropTypes.string,
   squareCoord: PropTypes.string,
   onPlay: PropTypes.func,
   isPlayable: PropTypes.bool,
-  children: React.ReactNode,
+  children: PropTypes.node,
 };
 
 export default Square;

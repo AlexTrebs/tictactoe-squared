@@ -16,6 +16,11 @@
   width: 100%;
 }
 
+.game-controls {
+  display: flex;
+  justify-content: space-between;
+}
+
 .top-bar {
   height: variables.$site-header-height;
 }

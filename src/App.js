@@ -1,20 +1,20 @@
 import './styles/scss/main.scss';
 import { Container, ThemeProvider, useTheme } from '@mui/material';
 import React, { useEffect } from 'react';
-import Controls from './components/Controls';
+import Controls from './components/controls/Controls';
 import { Provider } from 'react-redux';
 import SnackbarList from './components/SnackbarList';
-import Squared from './components/Squared';
+import Squared from './components/Board/Squared';
 import TopBar from './components/TopBar';
 import store from './stores/gameState/gameStateStore';
 import useAnonId from './hooks/useAnonId';
+import { FlagProvider } from '@unleash/nextjs/client';
 
 export default function App() {
   const theme = useTheme();
   useAnonId();
 
   useEffect(() => {
-    // eslint-disable-next-line no-undef
     const rootElement = document.documentElement;
 
     function updateRootUnits() {
@@ -32,7 +32,7 @@ export default function App() {
   }, []);
 
   return (
-    <>
+    <FlagProvider>
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <TopBar />
@@ -45,7 +45,7 @@ export default function App() {
           <SnackbarList />
         </ThemeProvider>
       </Provider>
-    </>
+    </FlagProvider>
   );
 }
 
